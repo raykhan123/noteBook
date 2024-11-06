@@ -1,30 +1,27 @@
-const express = require("express")
-const mongoose = require("mongoose")
-const bodyParser = require("body-parser")
-const route = require("./routes/route")
-const connectToMongo = require("./db")
-const app = express()
-const cors = require('cors')
+const express = require("express");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const route = require("./routes/route"); // Import routes
+const cors = require("cors");
+require("dotenv").config();
 
+const app = express();
+const port = process.env.PORT || 5000;
 
-app.use(cors())
+app.use(cors());
+app.use(bodyParser.json()); // Middleware to parse JSON
+app.use('/', route); // Use the router for all routes
 
-
-app.use(bodyParser.json())
-// connectToMongo()
-
-// app.get('/',(req,res)=>{
-// res.send("My name is Danish")
-// })
-mongoose.connect("mongodb+srv://danish123:Faizan123450@cluster0.sk9syp9.mongodb.net/notebook", {
-    useNewUrlParser: true })
-.then(() => console.log("mongoDB is connected"))
+mongoose.connect(process.env.Mongo_String, {
+  useNewUrlParser: true,
+})
+.then(() => console.log("MongoDB is connected"))
 .catch((err) => console.log(err));
 
+// Test route
+app.get('/', (req, res) => res.send('Hello World'));
 
-
-const port = process.env.PORT || 5000
-app.listen(port, function () {
-    console.log("app is running on the port" + port)
-})
-
+// Start the server
+app.listen(port, () => {
+  console.log("App is running on port " + port);
+});
