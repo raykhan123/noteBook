@@ -17,7 +17,8 @@ try {
     const dataCreated = await notesModel.create(data)
     return res.status(201).send(dataCreated)
 } catch (error) {
-    return res.status(500).send({msg:error.message})
+     res.status(500).send({msg:error.message})
+     return
 }
 }
 
