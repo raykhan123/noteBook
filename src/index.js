@@ -10,6 +10,7 @@ const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(bodyParser.json()); // Middleware to parse JSON
+app.get('/', (req, res) => res.send('Server is up on UAT'))
 app.use('/', route); // Use the router for all routes
 
 mongoose.connect(process.env.Mongo_String, {
